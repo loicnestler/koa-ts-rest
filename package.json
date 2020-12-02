@@ -12,7 +12,9 @@
       "debug": "DEBUG=* NODE_ENV=development tsc-watch --onSuccess \"node ./dist/app.js\"",
       "test": "jest"
    },
-   "husky": {},
+   "husky": {
+      "pre-commit": "npm test"
+   },
    "jest": {
       "moduleFileExtensions": [
          "js",
