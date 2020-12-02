@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Server should start 1`] = `"{\\"error\\":true,\\"message\\":\\"not found\\"}"`;
+
+exports[`Server should throw 404 on / 1`] = `"{\\"error\\":true,\\"message\\":\\"not found\\"}"`;

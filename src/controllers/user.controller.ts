@@ -1,5 +1,5 @@
 import { Context } from "koa"
-import { Controller, Get, KoaController, Post, Pre, Validate, Validator } from "koa-joi-controllers"
+import { Controller, Delete, Get, KoaController, Post, Pre, Validate, Validator } from "koa-joi-controllers"
 const Joi = Validator.Joi
 
 import User from "@/models/user.model"
@@ -51,6 +51,28 @@ class UserController extends KoaController {
         const isCorrectPassword = await user.validatePassword(ctx.request.body.password)
 
         if (isCorrectPassword) return ctx.ok({ token: jwt.compose({ _id: user.id, confirmed: user.confirmed }) })
+
+        throw new RestError(errors.INVALID_PASSWORD)
+    }
+
+    @Delete('/')
+    @Validate({
+        type: 'json',
+        body: {
+            password: Joi.string().min(8).required()
+        }
+    })
+    @Pre(jwt.hasJWT)
+    async deleteUser(ctx: Context) {
+        const user = await User.findById(ctx.tokenData._id)
+        if (!user) throw new RestError(errors.USER_NOT_FOUND, [ctx.tokenData._id])
+
+        const isCorrectPassword = await user.validatePassword(ctx.request.body.password)
+
+        if (isCorrectPassword) {
+            await user.deleteOne()
+            return ctx.ok({ sucess: true })
+        }
 
         throw new RestError(errors.INVALID_PASSWORD)
     }

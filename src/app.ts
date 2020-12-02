@@ -1,6 +1,6 @@
 import config from './config'
 
-import Koa from 'koa'
+import Koa, { Context } from 'koa'
 import KoaRespond from 'koa-respond'
 import KoaLogger from 'koa-logger'
 import KoaPinoLogger from 'koa-pino-logger'
@@ -15,10 +15,10 @@ import ValidationErrorHandler from '@/middlewares/validation-errorhandler'
 
 import UserController from '@/controllers/user.controller'
 
-
+// console.log(config.ENV)
 const app: Koa = new Koa()
 // app.use(ValidationErrorHandler())
-app.use(config.ENV === 'development' ? KoaLogger() : KoaPinoLogger())
+app.use(config.ENV === 'development' ? KoaLogger() : config.ENV === 'test' ? async (ctx: Context, next: Function) => await next() : KoaPinoLogger())
 app.use(KoaRespond())
 
 app.use(CookieHandler())
@@ -32,7 +32,7 @@ configureRoutes(app, [
     new UserController,
 ])
 
-mongo.connect(config.MONGO_URI).then(() => {
+const thread = mongo.connect(config.MONGO_URI).then(() => {
     console.log(`✅ Successfully connected to MongoDB`)
     app.listen(config.PORT, () => {
         console.log(`🚀 Listening on :${config.PORT}...`)
@@ -40,3 +40,5 @@ mongo.connect(config.MONGO_URI).then(() => {
 }).catch(err => {
     console.log(err)
 })
+
+export { thread, app }

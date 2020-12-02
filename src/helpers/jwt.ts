@@ -4,8 +4,12 @@ import errors, { RestError } from '@/lib/errors'
 import jsonwebtoken, { JsonWebTokenError } from 'jsonwebtoken'
 import { Context } from 'koa'
 
-const compose = (data: object, options: jsonwebtoken.SignOptions = { expiresIn: '2d' }) => {
+const compose = (data: object, options: jsonwebtoken.SignOptions = { expiresIn: '2d' }): string => {
     return jsonwebtoken.sign(data, config.JWT_SECRET_KEY, options)
+}
+
+const verify = (token: string): string | object => {
+    return jsonwebtoken.verify(token, config.JWT_SECRET_KEY)
 }
 
 const withJWT = async (ctx: Context, next: Function) => {
@@ -61,4 +65,4 @@ const hasJWT = async (ctx: Context, next: Function) => {
     }
 }
 
-export default { withJWT, withConfirmedJWT, hasJWT, compose }
+export default { withJWT, withConfirmedJWT, hasJWT, compose, verify }
