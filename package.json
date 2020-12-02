@@ -1,0 +1,53 @@
+{
+   "name": "koa-ts-rest",
+   "version": "1.0.0",
+   "main": "index.js",
+   "repository": "git@github.com:loicnestler/koa-ts-rest.git",
+   "author": "Loïc Nestler <loic.nestler@gmail.com>",
+   "license": "MIT",
+   "scripts": {
+      "build": "tsc --outDir ./dist",
+      "start": "node ./dist/index.js",
+      "dev": "NODE_ENV=development tsc-watch --onSuccess \"node ./dist/index.js\"",
+      "debug": "DEBUG=* NODE_ENV=development tsc-watch --onSuccess \"node ./dist/index.js\""
+   },
+   "husky": {},
+   "dependencies": {
+      "@typegoose/typegoose": "^7.4.2",
+      "bcrypt": "^5.0.0",
+      "dotenv": "^8.2.0",
+      "jsonwebtoken": "^8.5.1",
+      "koa": "^2.13.0",
+      "koa-joi-controllers": "^1.2.3",
+      "koa-pino-logger": "^3.0.0",
+      "koa-respond": "^2.1.0",
+      "mongoose": "^5.11.1"
+   },
+   "devDependencies": {
+      "@types/bcrypt": "^3.0.0",
+      "@types/debug": "^4.1.5",
+      "@types/joi": "^14.3.4",
+      "@types/jsonwebtoken": "^8.5.0",
+      "@types/koa": "^2.11.6",
+      "@types/koa-joi-router": "^5.2.4",
+      "@types/koa-logger": "^3.1.1",
+      "@types/koa-pino-logger": "^3.0.0",
+      "@types/mongoose": "^5.10.1",
+      "@types/node": "^14.14.10",
+      "debug": "^4.3.1",
+      "husky": "^4.3.0",
+      "koa-logger": "^3.2.1",
+      "tsc-watch": "^4.2.9",
+      "typescript": "^4.1.2"
+   },
+   "_moduleAliases": {
+      "@": "dist",
+      "@database": "dist/database",
+      "@routes": "dist/routes",
+      "@models": "dist/models",
+      "@controllers": "dist/controllers",
+      "@middlewares": "dist/middlewares",
+      "@lib": "dist/lib",
+      "@helpers": "dist/helpers"
+   }
+}
