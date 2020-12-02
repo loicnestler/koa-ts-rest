@@ -24,7 +24,7 @@ class UserController extends KoaController {
         try {
             const user = await new User(ctx.request.body).save()
             // console.log(`${user.email}=%=${md5(user.emailVerificationCode)}`)
-            return ctx.ok({ token: jwt.compose({ _id: user._id, confirmed: user.confirmed }) })
+            return ctx.ok({ token: jwt.compose({ _id: user.id, confirmed: user.confirmed }) })
 
         } catch (err) {
             if (err.code === 11000) throw new RestError(errors.EMAIL_ALREADY_IN_USE, [err.keyValue.email])
@@ -50,7 +50,7 @@ class UserController extends KoaController {
 
         const isCorrectPassword = await user.validatePassword(ctx.request.body.password)
 
-        if (isCorrectPassword) return ctx.ok({ token: jwt.compose({ _id: user._id, confirmed: user.confirmed }) })
+        if (isCorrectPassword) return ctx.ok({ token: jwt.compose({ _id: user.id, confirmed: user.confirmed }) })
 
         throw new RestError(errors.INVALID_PASSWORD)
     }
