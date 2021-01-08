@@ -1,4 +1,4 @@
-// import 'module-alias/register'
+import 'module-alias/register'
 
 import env from 'dotenv'
 env.config()

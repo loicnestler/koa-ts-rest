@@ -9,48 +9,9 @@
       "build": "tsc --outDir ./dist",
       "start": "node ./dist/app.js",
       "dev": "NODE_ENV=development tsc-watch --onSuccess \"node ./dist/app.js\"",
-      "debug": "DEBUG=* NODE_ENV=development tsc-watch --onSuccess \"node ./dist/app.js\"",
-      "test": "jest"
+      "debug": "DEBUG=* NODE_ENV=development tsc-watch --onSuccess \"node ./dist/app.js\""
    },
-   "husky": {
-      "pre-commit": "npm test"
-   },
-   "jest": {
-      "moduleFileExtensions": [
-         "js",
-         "json",
-         "ts"
-      ],
-      "collectCoverage": true,
-      "collectCoverageFrom": [
-         "/src/**/*.{ts,js}",
-         "!**/coverage/**"
-      ],
-      "transform": {
-         "\\.ts$": "ts-jest"
-      },
-      "coverageThreshold": {
-         "global": {
-            "branches": 100,
-            "functions": 100,
-            "lines": 100,
-            "statements": 100
-         }
-      },
-      "coverageReporters": [
-         "text",
-         "text-summary"
-      ],
-      "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(js|ts)x?$",
-      "testPathIgnorePatterns": [
-         "/node_modules/",
-         "/dist/"
-      ],
-      "moduleNameMapper": {
-         "@/(.*)$": "<rootDir>/src/$1"
-      },
-      "testEnvironment": "node"
-   },
+   "husky": {},
    "dependencies": {
       "@typegoose/typegoose": "^7.4.2",
       "bcrypt": "^5.0.0",
@@ -79,10 +40,7 @@
       "debug": "^4.3.1",
       "faker": "^5.1.0",
       "husky": "^4.3.0",
-      "jest": "^26.6.3",
       "koa-logger": "^3.2.1",
-      "supertest": "^6.0.1",
-      "ts-jest": "^26.4.4",
       "tsc-watch": "^4.2.9",
       "typescript": "^4.1.2"
    },
